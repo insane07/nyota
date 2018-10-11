@@ -17,7 +17,7 @@ func (svc *Service) getRoles(s *model.SessionContext, w http.ResponseWriter, req
 	logutil.Debugf(s, "Service layer - Get All Roles invoked...")
 	data, err := svc.Store.GetAllRoles(s)
 	if err != nil {
-		logutil.Errorf(s, "Error - %v", err)
+		logutil.Errorf(s, "Error- %v", err)
 		utils.SetSomethingWrong(s)
 	} else {
 		for _, role := range data {
