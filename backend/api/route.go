@@ -20,6 +20,7 @@ func getAllRoutes(srv *Service) (Routes, Routes) {
 
 	nologinRoutes := Routes{
 		Route{"/login", "Login", utils.HttpPost, utils.ReadPermission, srv.login, utils.GenericMenuPermissionKey},
+		Route{"/init", "Init", utils.HttpPost, utils.ReadPermission, srv.addRecords, utils.GenericMenuPermissionKey},
 		Route{"/event", "execute event", utils.HttpPost, utils.ModifyPermission, srv.ExecuteEvent, utils.GenericMenuPermissionKey},
 	}
 	/*GuardedRoutes are routes with Login*/

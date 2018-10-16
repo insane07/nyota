@@ -18,20 +18,22 @@ var (
 	analystPermission = make(map[string]string)
 
 	users = model.UserTenantDetailsArray{
-		model.UserTenantDetails{UserName: "admin@blr.com", Password: "Aruba123", TenantID: "1",
+		model.UserTenantDetails{UserName: "admin@nyota.com", Password: "pass123", TenantID: "1",
 			UserTenantAttributes: model.UserTenantAttributes{Role: utils.AdminUserRole, Permissions: utils.AdminUserRolePermission}},
-		model.UserTenantDetails{UserName: "admin@us.com", Password: "Aruba123", TenantID: "2",
+		model.UserTenantDetails{UserName: "admin@nyota1.com", Password: "pass123", TenantID: "2",
 			UserTenantAttributes: model.UserTenantAttributes{Role: utils.AdminUserRole, Permissions: utils.AdminUserRolePermission}},
 	}
 )
 
-func (svc *Service) addRecords() {
+func (svc *Service) addRecords(s *model.SessionContext, w http.ResponseWriter, r *http.Request) {
+
+	logutil.Printf(s, "Add Records Request Start...")
+
 	for _, localUser := range users {
-		localUser.UserName = "shitij"
-		//svc.Store.UpsertUser(nil, &localUser)
+		svc.Store.UpsertUser(nil, &localUser)
 	}
-	event := config.Event{}
-	svc.Store.UpsertEvent(nil, &event)
+	// event := config.Event{}
+	// svc.Store.UpsertEvent(nil, &event)
 }
 
 /*

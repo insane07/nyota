@@ -94,7 +94,7 @@ func NewRoute() *mux.Router {
 	}
 	initAPI()
 	// Add user records to db
-	srv.addRecords()
+	// srv.addRecords()
 
 	r := srv.Router
 
