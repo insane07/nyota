@@ -20,7 +20,7 @@ var (
 	users = model.UserTenantDetailsArray{
 		model.UserTenantDetails{UserName: "admin@nyota.com", Password: "pass123", TenantID: "1",
 			UserTenantAttributes: model.UserTenantAttributes{Role: utils.AdminUserRole, Permissions: utils.AdminUserRolePermission}},
-		model.UserTenantDetails{UserName: "admin@nyota1.com", Password: "pass123", TenantID: "2",
+		model.UserTenantDetails{UserName: "admin1@nyota.com", Password: "pass123", TenantID: "2",
 			UserTenantAttributes: model.UserTenantAttributes{Role: utils.AdminUserRole, Permissions: utils.AdminUserRolePermission}},
 	}
 )
