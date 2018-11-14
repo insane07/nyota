@@ -7,7 +7,6 @@ import (
 	"nyota/backend/api/requestinterceptor"
 	"nyota/backend/logutil"
 	"nyota/backend/model"
-	"nyota/backend/model/config"
 	"nyota/backend/store"
 	"nyota/backend/utils"
 )
@@ -32,8 +31,6 @@ func (svc *Service) addRecords(s *model.SessionContext, w http.ResponseWriter, r
 	for _, localUser := range users {
 		svc.Store.UpsertUser(nil, &localUser)
 	}
-	// event := config.Event{}
-	// svc.Store.UpsertEvent(nil, &event)
 }
 
 /*

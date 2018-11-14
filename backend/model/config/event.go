@@ -12,7 +12,8 @@ type Event struct {
 	Name          string                 `db:"name" json:"event_name"`
 	Description   string                 `db:"description" json:"event_description"`
 	EventDate     time.Time              `db:"event_date" json:"event_date"`
-	Detail        map[string]interface{} `db:"detail" json:"event_destail`
+	Detail        map[string]interface{} `db:"detail" json:"event_detail"`
+	UserName      string                 `db:"username" json:"username"`
 	TenantID      string                 `db:"tenant_id" json:"tenant_id"`
 	AddedAt       time.Time              `db:"added_at" json:"added_at"`
 	UpdatedAt     time.Time              `db:"updated_at" json:"updated_at"`

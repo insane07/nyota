@@ -13,7 +13,7 @@ import (
 func (store *Store) GetAllEvents(s *model.SessionContext) ([]*config.Event, error) {
 	logutil.Debugf(s, "Store Layer - Get All Events")
 	var events []*config.Event
-	err := store.DB().Select(&events, "Select * from Events where tenant_id=$1", s.User.TenantId)
+	err := store.DB().Select(&events, "Select * from Events where username=$1", s.User.UserName)
 	if err != nil {
 		return nil, err
 	}
@@ -71,6 +71,7 @@ func (store *Store) UpsertEvent(s *model.SessionContext, event *config.Event) er
 			logutil.Errorf(s, "upsert event:(%s) failed: %v", event.Name, err)
 			return err
 		}
+		logutil.Printf(s, "Upsert Event Successful ", event)
 		logutil.Debugf(s, "Upsert Event Successful")
 		return nil
 	})
