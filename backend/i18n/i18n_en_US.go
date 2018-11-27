@@ -10,7 +10,7 @@ package i18n
 //EnUs - Format is very important. [{ should follow ` symbol, otherwise it fails
 const EnUs = `[{
     "id": "program_greeting",
-    "translation": "Welcome to Admin Backend Services"
+    "translation": "Welcome to Nyota Backend Services"
   },
   {
     "id": "key_name_required",

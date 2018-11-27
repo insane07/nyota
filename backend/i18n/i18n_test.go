@@ -1,8 +1,8 @@
 package i18n
 
 import (
-	"nyota/backend/model"
 	"fmt"
+	"nyota/backend/model"
 	"testing"
 
 	"github.com/nicksnyder/go-i18n/i18n"
@@ -18,7 +18,7 @@ func TestI18N(t *testing.T) {
 		Lang: "en-US",
 	}
 
-	if "Welcome to Admin Backend Services" != Translate(session)("program_greeting") {
+	if "Welcome to Nyota Backend Services" != Translate(session)("program_greeting") {
 		t.Errorf("Testcase failed")
 	}
 
@@ -27,7 +27,7 @@ func TestI18N(t *testing.T) {
 		Lang: "xh",
 	}
 
-	if "英語 - Welcome to Admin Backend Services" != Translate(session)("program_greeting") {
+	if "英語 - Welcome to Nyota Backend Services" != Translate(session)("program_greeting") {
 		t.Errorf("XH language Testcase failed")
 	}
 }

@@ -8,7 +8,7 @@ package i18n
   **/
 
 //XhXh - Xhosa language Format. [{ should follow ` symbol, otherwise it fails
-const XhXh = `[{"id": "program_greeting", "translation": "英語 - Welcome to Admin Backend Services"},
+const XhXh = `[{"id": "program_greeting", "translation": "英語 - Welcome to Nyota Backend Services"},
   {"id": "key_name_required","translation": "英語 - Name must be specified"},
   {"id": "key_name_length", "translation": "英語 - Name length must be between 1 to 255"},
   {"id": "key_valid_email", "translation": "英語 - Specify Valid Email"},

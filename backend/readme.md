@@ -1,4 +1,4 @@
-# CCC Admin backend code
+# CCC Nyota Backend code
 
 Folder structure to build:
 

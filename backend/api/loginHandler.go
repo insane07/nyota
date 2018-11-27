@@ -33,24 +33,6 @@ func (svc *Service) addRecords(s *model.SessionContext, w http.ResponseWriter, r
 	}
 }
 
-/*
-func init() {
-
-	for tid := 700; tid < 900; tid++ {
-		for uid := 1; uid < 9; uid++ {
-			userName := fmt.Sprintf("%s%d%s%d%s", "optikadmin", uid, "@", tid, ".com")
-			tenant := fmt.Sprintf("%d", tid)
-			attribute := model.UserTenantAttributes{Role: utils.AdminUserRole, Permissions: utils.AdminUserRolePermission}
-			if uid > 5 {
-				attribute = model.UserTenantAttributes{Role: utils.AnalystUserRole, Permissions: utils.AnalystUserRolePermission}
-			}
-			users = append(users,
-				model.UserTenantDetails{UserName: userName, Password: "Aruba123", TenantID: tenant, Attributes: attribute})
-		}
-	}
-	logutil.Printf(nil, "Admin Backend Service Added Teanants example - optikadmin[1-5]@[700-899].com")
-}*/
-
 func (svc *Service) login(s *model.SessionContext, w http.ResponseWriter, r *http.Request) {
 
 	logutil.Printf(s, "Authentication Request Start...")

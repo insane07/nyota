@@ -4,7 +4,10 @@ import (
 	"nyota/backend/logutil"
 	"nyota/backend/model"
 	"nyota/backend/model/config"
+	"strconv"
 	"time"
+
+	qrcode "github.com/skip2/go-qrcode"
 
 	gorp "gopkg.in/gorp.v2"
 )
@@ -62,6 +65,9 @@ func (store *Store) UpsertEvent(s *model.SessionContext, event *config.Event) er
 			event.AddedAt = time.Now()
 			event.UpdatedAt = event.AddedAt
 			err = tx.Insert(event)
+			if err == nil {
+				err = qrcode.WriteFile("http://google.com", qrcode.Medium, 256, "./qr/"+strconv.Itoa(event.ID)+"-"+event.TenantID+".png")
+			}
 		} else {
 			event.UpdatedAt = time.Now()
 			_, err = tx.Update(event)
@@ -71,7 +77,6 @@ func (store *Store) UpsertEvent(s *model.SessionContext, event *config.Event) er
 			logutil.Errorf(s, "upsert event:(%s) failed: %v", event.Name, err)
 			return err
 		}
-		logutil.Printf(s, "Upsert Event Successful ", event)
 		logutil.Debugf(s, "Upsert Event Successful")
 		return nil
 	})

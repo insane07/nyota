@@ -1,11 +1,11 @@
 package main
 
 import (
-	"nyota/backend/api"
-	"nyota/backend/logutil"
 	"goprizm/log"
 	"goprizm/sysutils"
 	"net/http"
+	"nyota/backend/api"
+	"nyota/backend/logutil"
 	"strconv"
 )
 
@@ -19,10 +19,10 @@ func init() {
 	if port > 1024 && port <= 65535 {
 		adminPort = ":" + strconv.Itoa(port)
 	}
-	logutil.Printf(nil, "Admin Backend Service started on port%s", adminPort)
+	logutil.Printf(nil, "Nyota Backend Service started on port%s", adminPort)
 }
 
 func main() {
 	router := api.NewRoute()
-	log.Fatalf("Error starting Admin Backend Service (%s)", http.ListenAndServe(adminPort, router))
+	log.Fatalf("Error starting Nyota Backend Service (%s)", http.ListenAndServe(adminPort, router))
 }
