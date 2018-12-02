@@ -1,12 +1,17 @@
 package api
 
 import (
+	"bytes"
 	"goprizm/httputils"
+	"image"
+	"image/jpeg"
+	"log"
 	"net/http"
 	"nyota/backend/logutil"
 	"nyota/backend/model"
 	"nyota/backend/model/config"
 	"nyota/backend/utils"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -37,6 +42,33 @@ func (svc *Service) getEventByID(s *model.SessionContext, w http.ResponseWriter,
 	} else {
 		updateEvent(s, svc, data)
 		httputils.ServeJSON(w, data)
+	}
+}
+
+func (svc *Service) getEventQrByID(s *model.SessionContext, w http.ResponseWriter, req *http.Request) {
+	id := mux.Vars(req)["id"]
+	logutil.Debugf(s, "Service layer - Get Event QR By Id... Id=%v", id)
+	img, err := svc.Store.GetEventQrByID(s, id)
+	if err != nil {
+		logutil.Errorf(s, "Get Event QR Error - %v", err)
+		utils.SetSomethingWrong(s)
+	} else {
+		writeImage(w, img)
+	}
+}
+
+// writeImage encodes an image 'img' in jpeg format and writes it into ResponseWriter.
+func writeImage(w http.ResponseWriter, img *image.Image) {
+
+	buffer := new(bytes.Buffer)
+	if err := jpeg.Encode(buffer, *img, nil); err != nil {
+		log.Println("unable to encode image.")
+	}
+
+	w.Header().Set("Content-Type", "image/jpeg")
+	w.Header().Set("Content-Length", strconv.Itoa(len(buffer.Bytes())))
+	if _, err := w.Write(buffer.Bytes()); err != nil {
+		log.Println("unable to write image.")
 	}
 }
 

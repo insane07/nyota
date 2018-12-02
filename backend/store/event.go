@@ -1,11 +1,14 @@
 package store
 
 import (
+	"image"
 	"nyota/backend/logutil"
 	"nyota/backend/model"
 	"nyota/backend/model/config"
 	"strconv"
 	"time"
+
+	"os"
 
 	qrcode "github.com/skip2/go-qrcode"
 
@@ -43,16 +46,25 @@ func (store *Store) GetEventByID(s *model.SessionContext, id string) (*config.Ev
 		return nil, err
 	}
 
-	// var clusters []*config.Cluster
-	// err = store.DB().Select(&clusters, `SELECT cluster.* FROM ccc_cluster cluster
-	// 	JOIN ccc_event_cluster event_cluster on cluster.id = event_cluster.cluster_id
-	// 	WHERE event_cluster.event_id = $1 and event_cluster.tenant_id = $2`, event.ID, event.TenantID)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// event.Clusters = clusters
-
 	return event, nil
+}
+
+//GetEventQRByID - get event qr based on id
+func (store *Store) GetEventQrByID(s *model.SessionContext, id string) (*image.Image, error) {
+	logutil.Debugf(s, "Store Layer - Get Event Qr By Id")
+
+	infile, err := os.Open("./qr/" + id + "-.png")
+	if err != nil {
+		return nil, err
+	}
+	defer infile.Close()
+
+	src, _, err := image.Decode(infile)
+	if err != nil {
+		return nil, err
+	}
+
+	return &src, nil
 }
 
 //UpsertEvent - insert or update event
@@ -66,7 +78,7 @@ func (store *Store) UpsertEvent(s *model.SessionContext, event *config.Event) er
 			event.UpdatedAt = event.AddedAt
 			err = tx.Insert(event)
 			if err == nil {
-				err = qrcode.WriteFile("http://google.com", qrcode.Medium, 256, "./qr/"+strconv.Itoa(event.ID)+"-"+event.TenantID+".png")
+				err = qrcode.WriteFile("http://google.com/search?q="+strconv.Itoa(event.ID), qrcode.Medium, 256, "./qr/"+strconv.Itoa(event.ID)+"-.png")
 			}
 		} else {
 			event.UpdatedAt = time.Now()
